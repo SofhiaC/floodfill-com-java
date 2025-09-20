@@ -1,0 +1,66 @@
+<!-- define que o arquivo segue o padão POM 4.0.0 do Maven, tem relação com validação de estrutura de arquivo tbm -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!-- modelo de versão que sempre vai ser o 4.0.0 para o maven moderno, indicando a versão do modelo POM usado -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- identifica o pacote ou organização do projeto, geralmente em forma de domínio invertido (tipo com.floodfill) mas eu não savia -->
+    <groupId>floodfill</groupId>
+    <!-- o nome do projeto ou biblioteca -->
+    <artifactId>floodfill</artifactId>
+    <!-- versão do peojeto, indique que é uma versão que está em desenvolvimento e não é estável -->
+    <version>1.0-SNAPSHOT</version>
+    <!-- evita erros de compatibilidade entre versões do java -->
+    <properties>
+        <!-- garante que os arquivos em javam vão ser lidos em utf-8 clássico -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- ambos definem a versão do java usada pra compilar o projeto -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+    <!-- aqui entra o ponto principal do maven, facilita o gerencimaneto de JARs, anteriormente feitos manualmente, então aqui em dependencias se diz ao maven quais as bibliotecas externas necessárias e ele vai baixaar automaticamente (junto com os controls e fxml dessa biblioteca pra gerencimamento de versões) anteriormente esse processo era feito manualmente colocando as bibliotecas na pasta lib do user-->
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>13</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <!-- os plugins definem como o maven vai compilar, empacotar e rodar o projeto -->
+        <plugins>
+            <!-- plugin do compipador vai configurar a compilação do java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                <!-- a versão que deve ser usada para compitar e gerar o bytecode compatível -->
+                    <release>11</release>
+                </configuration>
+            </plugin>
+            <!-- plugin do java fx facilita rodar aplicativos javaFX com o maven -->
+            <!-- ao executar:    mvn clean javafx:run   o maven cuida de passar todos os módulos do JavaFX corretamente  -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.6</version>
+                <executions>
+                    <execution>
+                        <!-- Default configuration for running -->
+                        <!-- Usage: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                        <configuration>
+                        <!-- classe principal do projeto onde vai haver o public static void main -->
+                            <mainClass>floodfill.App</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
